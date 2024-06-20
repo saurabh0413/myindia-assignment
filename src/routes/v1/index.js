@@ -1,5 +1,6 @@
 const express = require("express");
 const UserController = require("../../controllers/user-controller");
+const ProductController = require("../../controllers/product-controller");
 const { AuthRequestValidators } = require("../../middlewares/index");
 
 const router = express.Router();
@@ -14,5 +15,9 @@ router.post(
   AuthRequestValidators.validateUserAuth,
   UserController.login
 );
+
+router.get("/products", ProductController.getProducts);
+router.post("/products", ProductController.createProduct);
+
 
 module.exports = router;
