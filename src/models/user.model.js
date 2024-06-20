@@ -19,8 +19,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
-
 userSchema.pre("save", function (next) {
   const user = this;
   const SALT = bcrypt.genSaltSync(9);
@@ -28,5 +26,17 @@ userSchema.pre("save", function (next) {
   user.password = encryptedPassword;
   next();
 });
+
+userSchema.methods.comparePassword = function compare(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+userSchema.methods.generateJWT = function generate() {
+  return jwt.sign({ id: this._id, email: this.email }, "ecom_secret", {
+    expiresIn: "1h",
+  });
+};
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
