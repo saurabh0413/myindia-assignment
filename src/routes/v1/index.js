@@ -2,6 +2,7 @@ const express = require("express");
 const UserController = require("../../controllers/user-controller");
 const ProductController = require("../../controllers/product-controller");
 const OrderController = require("../../controllers/order-controller");
+const PaymentController = require("../../controllers/payment-controller");
 
 const {
   AuthRequestValidators,
@@ -44,5 +45,11 @@ router.delete(
   OrderController.deleteOrder
 );
 router.get("/orders/:id", OrderController.getOrder);
+
+router.post(
+  "/payments",
+  UserAuthValidate.UserAuthValidate,
+  PaymentController.createPayment
+);
 
 module.exports = router;

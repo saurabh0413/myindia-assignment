@@ -26,6 +26,10 @@ const paymentSchema = new mongoose.Schema(
       enum: ["Stripe", "PayPal"],
       required: true,
     },
+    paymentDetails: {
+      type: Object,
+      required: true,
+    },
   },
   { timestamps: true }
 );
