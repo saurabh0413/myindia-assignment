@@ -3,7 +3,10 @@ const UserController = require("../../controllers/user-controller");
 const ProductController = require("../../controllers/product-controller");
 const OrderController = require("../../controllers/order-controller");
 
-const { AuthRequestValidators } = require("../../middlewares/index");
+const {
+  AuthRequestValidators,
+  UserAuthValidate,
+} = require("../../middlewares/index");
 
 const router = express.Router();
 
@@ -19,10 +22,27 @@ router.post(
 );
 
 router.get("/products", ProductController.getProducts);
-router.post("/products", ProductController.createProduct);
-router.delete("/products/:id", ProductController.deleteProduct);
+router.post(
+  "/products",
+  UserAuthValidate.UserAuthValidate,
+  ProductController.createProduct
+);
+router.delete(
+  "/products/:id",
+  UserAuthValidate.UserAuthValidate,
+  ProductController.deleteProduct
+);
 
-router.post("/orders", OrderController.createOrder);
-router.delete("/orders/:id", OrderController.deleteOrder);
+router.post(
+  "/orders",
+  UserAuthValidate.UserAuthValidate,
+  OrderController.createOrder
+);
+router.delete(
+  "/orders/:id",
+  UserAuthValidate.UserAuthValidate,
+  OrderController.deleteOrder
+);
+router.get("/orders/:id", OrderController.getOrder);
 
 module.exports = router;

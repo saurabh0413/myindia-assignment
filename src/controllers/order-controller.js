@@ -43,4 +43,23 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, deleteOrder };
+const getOrder = async (req, res) => {
+  try {
+    const response = await orderService.getOrder(req.params.id);
+    return res.status(201).json({
+      success: true,
+      message: "Successfully fetched order",
+      data: response,
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Something went wrong",
+      data: {},
+      success: false,
+      err: error,
+    });
+  }
+};
+
+module.exports = { createOrder, deleteOrder, getOrder };

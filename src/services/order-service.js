@@ -51,6 +51,15 @@ class OrderService {
       throw error;
     }
   }
+
+  async getOrder(orderId) {
+    try {
+      const result = await this.orderRepository.get(orderId);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = OrderService;
