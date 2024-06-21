@@ -1,4 +1,6 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
+
 const bodyParser = require("body-parser");
 
 const { PORT } = require("./config/serverConfig");
@@ -7,8 +9,16 @@ const connect = require("./config/database");
 
 const app = express();
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Too many requests from this IP, please try again later",
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(limiter);
 
 app.use("/api", apiRoutes);
 
