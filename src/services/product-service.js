@@ -22,6 +22,15 @@ class ProductService {
       throw error;
     }
   }
+
+  async deleteProduct(id) {
+    try {
+      const response = await this.productRepository.delete(id);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = ProductService;

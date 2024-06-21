@@ -18,6 +18,6 @@ router.post(
 
 router.get("/products", ProductController.getProducts);
 router.post("/products", ProductController.createProduct);
-
+router.delete("/products/:id", ProductController.deleteProduct);
 
 module.exports = router;

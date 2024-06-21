@@ -6,7 +6,7 @@ const createProduct = async (req, res) => {
     const response = await productService.createProduct({
       name: req.body.name,
       description: req.body.description,
-      price: req.body.price
+      price: req.body.price,
     });
     return res.status(201).json({
       success: true,
@@ -26,10 +26,10 @@ const createProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const response = await productService.delete(req.body.id);
+    const response = await productService.deleteProduct(req.body.id);
     return res.status(201).json({
       success: true,
-      message: "Successfully deleted a new product",
+      message: "Successfully deleted a product",
       data: response,
       err: {},
     });
